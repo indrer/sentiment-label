@@ -16,7 +16,7 @@ try:
     connection = psycopg2.connect(**database_connect) # hostname, database, username, password
     cur = connection.cursor()
     for video in videos:
-        q = "insert into sentiment_anls.video values(%(url)s, %(title)s, %(upvote)s, %(downvote)s, %(views)s, %(commentCount)s, %(date)s) on conflict (url) do nothing"
+        q = 'insert into sentiment_anls.video values(%(url)s, %(title)s, %(upvote)s, %(downvote)s, %(views)s, %(commentCount)s, %(date)s) on conflict (url) do nothing'
         cur.execute(q, video)
     connection.commit()
     # close the communication with the PostgreSQL
