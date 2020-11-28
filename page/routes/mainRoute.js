@@ -1,0 +1,10 @@
+'use strict'
+
+const express = require('express')
+const router = express.Router()
+
+router.get('/', async (req, res) => {
+  res.send('huh')
+})
+
+module.exports = router
