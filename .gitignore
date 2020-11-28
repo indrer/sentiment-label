@@ -3,3 +3,4 @@ secret*
 *.csv
 .ipynb_checkpoints
 *.bin
+node_modules
