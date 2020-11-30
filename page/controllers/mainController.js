@@ -29,25 +29,22 @@ controller.index = async (req, res, db) => {
 }
 
 controller.post = async (req, res, db) => {
-  // let commentid = req.session.commentid
-  let commentid = ['test']
+  // let commentid = [req.session.commentid]
+  let commentid = ['test'] // DO NOT UNCOMMENT THIS WHILE TESTING
   let sentiment = parseInt(req.body.sentiment)
   let query = ''
   switch (sentiment) {
     case 1:
-      console.log('case 1')
       query = `update sentiment_anls.comment
       set positive = positive + 1, rated = rated + 1
       where comment_id = $1;`
       break
     case -1:
-      console.log('case -1')
       query = `update sentiment_anls.comment
       set negative = negative + 1, rated = rated + 1
       where comment_id = $1;`
       break
     case 0:
-      console.log('case 0')
       query = `update sentiment_anls.comment
       set neutral = neutral + 1, rated = rated + 1
       where comment_id = $1;`
@@ -55,8 +52,7 @@ controller.post = async (req, res, db) => {
   }
   try {
     console.log(query)
-    const resp = await db.query(query, commentid)
-    console.log(resp)
+    await db.query(query, commentid)
   } catch (err) {
     console.log(err)
   }
