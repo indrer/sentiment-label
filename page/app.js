@@ -4,7 +4,6 @@ const express = require('express')
 const hbs = require('express-hbs')
 const path = require('path')
 const logger = require('morgan')
-const db = require('./model/database')
 const session = require('express-session')
 const secret = require('./secret')
 
@@ -36,13 +35,15 @@ const sessOpt = {
 }
 
 app.use(session(sessOpt))
-// Dealing with comment id
-app.use((req, res, next) => {
-  if (!req.session.init) { // if first connection
-    req.session.init = true
-    req.session.commentid = ''
-  }
-})
+
+// app.use((req, res, next) => {
+//   if (req.session.commentid) {
+//     console.log(req.session.commentid)
+//     delete req.session.commentid
+//   }
+//   next()
+// })
+
 app.use('/', require('./routes/mainRoute'))
 // prevent browser from looking for favicon and throwing
 // errors left and right

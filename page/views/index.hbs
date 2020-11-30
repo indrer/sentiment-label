@@ -1,2 +1,14 @@
-<h1>Title?</h1>
-<p>Test</p>
+<h1>Title</h1>
+<p>
+    {{#if commentinfo}}
+    {{commentinfo.title}}<br>
+    {{commentinfo.videoid}}<br><br>
+    {{commentinfo.body}}
+    {{else}}
+    There was an error
+    {{/if}}
+    <form action="/" method="POST">
+        <input name="sentiment" type="text" />
+        <button type="submit">Send</button>
+    </form>
+</p>
