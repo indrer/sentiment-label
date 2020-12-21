@@ -1,14 +1,99 @@
-<h1>Title</h1>
-<p>
+<div class="comment-sentiment">
+    <h1 id="title">YouTube Comment Sentiment labelling</h1>
     {{#if commentinfo}}
-    {{commentinfo.title}}<br>
-    {{commentinfo.videoid}}<br><br>
-    {{commentinfo.body}}
+        <a id="videoTitle" href="https://www.youtube.com/watch?v={{commentinfo.videoid}}">{{commentinfo.title}}</a>
+        <div class="comment-body">
+            {{commentinfo.body}}
+        </div>
+        <div class="help-info">
+            <h4>For quick input:</h4>
+            <p><b>Key 1</b> select positive</p>
+            <p></p><b>Key 2</b> select neutral</p>
+            <p></p><b>Key 3</b> select negative</p>
+            <p></p><b>Key 4</b> select invalid</p>
+            <p></p><b>Key S</b> skip</p>
+            <p></p><b>Enter</b> Submit sentiment</p>
+        </div>
+        <form id="sentiment-form" action="/" method="POST">
+            <div class="sentiment-inputs">
+                <div>
+                    <input class="sentiment-input first" type="radio" name="sentiment" id="sentiment_positive" value="positive">
+                    <label for="sentiment_positive">Positive</label>
+                </div>
+                <div>
+                    <input class="sentiment-input" type="radio" name="sentiment" id="sentiment_neutral" value="neutral">
+                    <label for="sentiment_neutral">Neutral</label>
+                </div>
+                <div>
+                    <input class="sentiment-input" type="radio" name="sentiment" id="sentiment_negative" value="negative">
+                    <label for="sentiment_negative">Negative</label>
+                </div>
+                <div>
+                    <input class="sentiment-input last" type="radio" name="sentiment" id="sentiment_invalid" value="invalid">
+                    <label for="sentiment_invalid">Invalid</label>
+                </div>
+            </div>
+            <div class="sentiment-form_actions">
+                <button id="skip" class="button button-secondary">Skip</button>
+                <button class="button button-primary" type="submit">Submit</button>
+            </div>
+        </form>
+
+
+        <div>
+            <h2>Examples and how to</h2>
+            <p>Here would be some sort of example</p>
+        </div>
+        <script>
+            const select = (n) => {
+                Array.from(document.getElementsByClassName('sentiment-input')).map((buttons, index) => {
+                    buttons.checked = n === index
+                })
+            }
+
+            const reload = () => {
+                window.location.reload(true)
+            }
+
+            document.getElementById("skip").addEventListener("click", event => {
+                event.preventDefault()
+                reload()
+            })
+
+            // Key      KeyCode
+            // 1        49
+            // 2        50
+            // 3        51
+            // 4        52
+            // s        83
+            // enter    13
+            window.addEventListener('keydown', event => {
+                switch (event.keyCode) {
+                    case 49:
+                        select(0)
+                        break
+                    case 50:
+                        select(1)
+                        break
+                    case 51:
+                        select(2)
+                        break
+                    case 52:
+                        select(3)
+                        break
+                    case 83:
+                        reload()
+                        break
+                    case 13:
+                        document.getElementById("sentiment-form").submit();
+                        break;
+                    default:
+                        break
+                }
+            })
+        </script>
     {{else}}
-    There was an error
+        There was an error
     {{/if}}
-    <form action="/" method="POST">
-        <input name="sentiment" type="text" />
-        <button type="submit">Send</button>
-    </form>
-</p>
+
+</div>
