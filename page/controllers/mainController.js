@@ -29,11 +29,15 @@ controller.index = async (req, res, db) => {
 }
 
 controller.post = async (req, res, db) => {
-  // let commentid = [req.session.commentid]
-  let commentid = ['test'] // DO NOT UNCOMMENT THIS WHILE TESTING
+  let commentid = [req.session.commentid]
   let sentiment = parseInt(req.body.sentiment)
   let query = ''
   switch (sentiment) {
+    case 2:
+      query = `update sentiment_anls.comment
+      set rated = rated + 1
+      where comment_id = $1;`
+      break
     case 1:
       query = `update sentiment_anls.comment
       set positive = positive + 1, rated = rated + 1
