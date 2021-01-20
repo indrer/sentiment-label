@@ -42,7 +42,10 @@
 
         <div>
             <h2>Examples and how to</h2>
-            <p>Here would be some sort of example</p>
+            <p>The purpose of this tool is to make sentiment assignment to a comment easier. You can either rate comment as positive, negative or neutral.</p>
+            <p>A positive or negative sentiment should be assigned to a comment that talks positively or negatively about the content of the video. For example, "<i>I don’t know how many times I’ve watched, but I know it is a lot, and keep loving it more.</i>" should be rated as a positive comment because it talks about watching the video often and liking it more each time. "<i>Just let them make it, but let's all unite and agree to not buy a single copy.</i>" which should be labelled as a negative comment as it is talking about not buying the product presented in the video. Some comments can be difficult to assign a sentiment to without knowing the context, therefore a link to a video is provided for each comment.</p>
+            <p>A comment can be marked as neutral when the sentiment of the comment is unclear or no opinion is present. For example, "<i>Wow, this has more dislikes than likes</i>" does not indicate whether the user enjoyed the video or not. In addition to that, sarcasm can be difficult to detect in text, therefore if the comment seems sarcastic, and it's not clear if the user is positive or negative towards the video, it should be marked as neutral.</p>
+            <p>Finally, if the comment consists of only a link or characters, or it's not in English, it should be marked as invalid.</p>
         </div>
         <script>
             const select = (n) => {

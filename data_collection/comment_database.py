@@ -78,7 +78,7 @@ try:
         videoid = video_ids.pop().replace('\n', '')
         print('Reading video id ', str(videoid))
         response = send_request(nextToken)
-        comment_count = 5000
+        comment_count = 1000
         while response and comment_count > 0:
             for item in response['items']:
                 comment = put_comment_in_dict(item, videoid)
