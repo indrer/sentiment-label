@@ -1,5 +1,6 @@
+<p id="warning">Please be aware that the comments have not been reviewed, therefore there might be rude or inapproriate comments. <button id="agree-comments">OK</button> </p>
 <div class="comment-sentiment">
-    <h1 id="title">YouTube Comment Sentiment labelling</h1>
+    <h1 id="title">YouTube Video Comment Sentiment labelling</h1>
     {{#if commentinfo}}
         <a id="videoTitle" href="https://www.youtube.com/watch?v={{commentinfo.videoid}}">{{commentinfo.title}}</a>
         <div class="comment-body">
@@ -41,13 +42,20 @@
 
 
         <div>
-            <h2>Examples and how to</h2>
-            <p>The purpose of this tool is to make sentiment assignment to a comment easier. You can either rate comment as positive, negative or neutral.</p>
-            <p>A positive or negative sentiment should be assigned to a comment that talks positively or negatively about the content of the video. For example, "<i>I don’t know how many times I’ve watched, but I know it is a lot, and keep loving it more.</i>" should be rated as a positive comment because it talks about watching the video often and liking it more each time. "<i>Just let them make it, but let's all unite and agree to not buy a single copy.</i>" which should be labelled as a negative comment as it is talking about not buying the product presented in the video. Some comments can be difficult to assign a sentiment to without knowing the context, therefore a link to a video is provided for each comment.</p>
-            <p>A comment can be marked as neutral when the sentiment of the comment is unclear or no opinion is present. For example, "<i>Wow, this has more dislikes than likes</i>" does not indicate whether the user enjoyed the video or not. In addition to that, sarcasm can be difficult to detect in text, therefore if the comment seems sarcastic, and it's not clear if the user is positive or negative towards the video, it should be marked as neutral.</p>
-            <p>Finally, if the comment consists of only a link or characters, or it's not in English, it should be marked as invalid.</p>
+            <h2>Information</h2>
+            <p>As part of my degree project, I am building a YouTube video comment sentiment dataset. In order to ease the labelling of the data, I created this tool. Read on to learn how to use it and what it's about.</p>
+            <h4>What is a comment sentiment?</h4>
+            <p>A comment sentiment is a comment's view or opinion about the video and its content.</p>
+            <h4>How do I use this tool?</h4>
+            <p>You will be presented with a comment and a video link that the comment was posted on. If you think the comment is positive towards the video, mark it as <b>positive</b>. If the comment seems negative, mark it as <b>negative</b>. There will be comments where the sentiment isn't clear, for example, the author of the comment is pointing something out but it's unclear what opinion they hold towards a video. In that case, a <b>neutral</b> mark is appropriate. If the comment consists of only a link or characters, or it's not in English, it should be marked as <b>invalid.</b> Finally, if you can't decide, you have an option to skip the comment.</p>
+            <p>Thank you for your help! If you have any questions, please <a href="mailto:ik222gp@student.lnu.se">email me</a>.</p>
         </div>
         <script>
+            let agreed = window.localStorage.getItem("agreed")
+            if (agreed == null) {
+                console.log("test")
+                document.getElementById("warning").style.display = "block"
+            }
             const select = (n) => {
                 Array.from(document.getElementsByClassName('sentiment-input')).map((buttons, index) => {
                     buttons.checked = n === index
@@ -93,6 +101,12 @@
                     default:
                         break
                 }
+            })
+
+            document.getElementById("agree-comments").addEventListener("click", event => {
+                window.localStorage.setItem("agreed", "true")
+                document.getElementById("warning").style.display = "none"
+
             })
         </script>
     {{else}}

@@ -4,7 +4,7 @@ from secret import database_connect
 from sqlalchemy import create_engine
 import io
 
-df = pd.read_csv('2021-01-14-lang_pred.csv')
+df = pd.read_csv('2021-02-02-lang_pred.csv')
 df = df.loc[:, ~df.columns.str.contains('^Unnamed')] # drop unnamed
 df_todb = df.loc[(df['lang'] == 'en') | (df['lang'] == 'emoji')]
 df_todb = df_todb.drop(['lang', 'lang_conf', 'stripped_body'], axis = 1)

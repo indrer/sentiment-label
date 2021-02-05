@@ -22,6 +22,12 @@ form {
     width: 50%;
 }
 
+#warning {
+    background-color: rgb(231, 149, 138);
+    padding: 20px;
+    display: none;
+}
+
 .container {
     background-color: #f9f9f9;
     padding: 20px 100px;

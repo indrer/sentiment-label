@@ -45,13 +45,16 @@ def _get_video_data_from_response_item(item):
 
 
 def get_manually_collected_video_ids():
-    manually_collected_video_files = ['dislikedvideos.txt', 'middle.txt', 'likedvideos.txt']
+    #manually_collected_video_files = ['dislikedvideos.txt', 'middle.txt', 'likedvideos.txt']
     manually_collected_video_ids = []
+    manually_collected_video_files = ['secret_manual.txt']
     # read manually collected videos
     for v in manually_collected_video_files:
         with open(v, 'r') as f:
             for line in f:
-                manually_collected_video_ids.append(_parse_youtube_url(line))
+                #manually_collected_video_ids.append(_parse_youtube_url(line))
+                manually_collected_video_ids.append(line.replace('\n', ''))
+    print(manually_collected_video_ids)
     np.random.shuffle(manually_collected_video_ids)
     return manually_collected_video_ids
 
@@ -104,9 +107,10 @@ def fetch_youtube_from_list(service, video_list):
     return video_objects
 
 def get_videos(service, region='US', video_num=100, video_part='snippet, statistics', video_chart='mostPopular'):
-    most_popular_videos = get_videos_from_categories(service, region, video_num, video_part, video_chart)
+    # most_popular_videos = get_videos_from_categories(service, region, video_num, video_part, video_chart)
     collected_videos = fetch_youtube_from_list(service, get_manually_collected_video_ids())
-    videos = most_popular_videos + collected_videos
+    #videos = most_popular_videos + collected_videos
+    videos = collected_videos
     np.random.shuffle(videos)
     return list(videos)
 

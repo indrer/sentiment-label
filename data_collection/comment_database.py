@@ -1,4 +1,5 @@
 import psycopg2
+import traceback
 from secret import API_KEY, database_connect
 from googleapiclient.discovery import build
 import os.path
@@ -72,17 +73,28 @@ try:
                 for line in f:
                     video_ids.append(line)
         except Exception as error:
-            print(error)
+            traceback.print_exc()
 
     while len(video_ids) > 0:
         videoid = video_ids.pop().replace('\n', '')
         print('Reading video id ', str(videoid))
         response = send_request(nextToken)
-        comment_count = 1000
-        while response and comment_count > 0:
+        comment_count = 2001
+        temp_comments = []
+        authors = set()
+        while response and len(temp_comments) < comment_count:
             for item in response['items']:
-                comment = put_comment_in_dict(item, videoid)
-                comments.append(comment)
+                if 'authorChannelId' in item['snippet']['topLevelComment']['snippet']:
+                    author = item['snippet']['topLevelComment']['snippet']['authorChannelId']['value']
+                    if author in authors:
+                        continue
+                    else:
+                        authors.add(author)
+                        comment = put_comment_in_dict(item, videoid)
+                        temp_comments.append(comment)
+                        comments.append(comment)
+                else:
+                    continue
             comment_count = comment_count - 100 # max per response
             if 'nextPageToken' in response:
                 with open('secret_nextpagetoken.txt', 'a+') as f:
@@ -107,7 +119,7 @@ try:
     # close the communication with the PostgreSQL
     cur.close()
 except (Exception, psycopg2.DatabaseError) as error:
-    print(error)
+    traceback.print_exc()
 finally:
     if connection is not None:
         connection.close()
