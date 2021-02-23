@@ -23,9 +23,10 @@ form {
 }
 
 #warning {
-    background-color: rgb(231, 149, 138);
-    padding: 20px;
-    display: none;
+    background-color: rgb(240, 204, 199);
+    padding: 6px;
+    font-size: 12px;
+    text-align: center;
 }
 
 .container {

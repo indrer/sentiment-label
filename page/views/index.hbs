@@ -1,4 +1,4 @@
-<p id="warning">Please be aware that the comments have not been reviewed, therefore there might be rude or inapproriate comments. <button id="agree-comments">OK</button> </p>
+<p id="warning">Please be aware that the comments have not been reviewed, therefore there might be rude or inapproriate comments.</p>
 <div class="comment-sentiment">
     <h1 id="title">YouTube Video Comment Sentiment labelling</h1>
     {{#if commentinfo}}
@@ -15,7 +15,7 @@
             <p></p><b>Key S</b> skip</p>
             <p></p><b>Enter</b> Submit sentiment</p>
         </div>
-        <form id="sentiment-form" action="/" method="POST">
+        <form id="sentiment-form" action="/labels" method="POST">
             <div class="sentiment-inputs">
                 <div>
                     <input class="sentiment-input first" type="radio" name="sentiment" id="sentiment_positive" value="1">
@@ -51,11 +51,6 @@
             <p>Thank you for your help! If you have any questions, please <a href="mailto:ik222gp@student.lnu.se">email me</a>.</p>
         </div>
         <script>
-            let agreed = window.localStorage.getItem("agreed")
-            if (agreed == null) {
-                console.log("test")
-                document.getElementById("warning").style.display = "block"
-            }
             const select = (n) => {
                 Array.from(document.getElementsByClassName('sentiment-input')).map((buttons, index) => {
                     buttons.checked = n === index
@@ -101,12 +96,6 @@
                     default:
                         break
                 }
-            })
-
-            document.getElementById("agree-comments").addEventListener("click", event => {
-                window.localStorage.setItem("agreed", "true")
-                document.getElementById("warning").style.display = "none"
-
             })
         </script>
     {{else}}
